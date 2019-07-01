@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style></style>
+  </head>
+  <body>
+    <div id="mainroot">
+      <form id="form" action="">
+        <span>TODO</span> <br />
+        INPUT:<br />
+        <input type="text" id="input" />
+        <button id="submit">ADD</button>
+      </form>
+      <dir id="root"></dir>
+    </div>
+
+    <script>
+      const root = document.querySelector("#root");
+      const form = document.querySelector("#form");
+      const txt = document.querySelector("#input");
+      const Tc = document.createElement("p");
+      // const dc = document.createElement("p");
+
+      const ul = document.createElement("ul");
+
+      root.appendChild(ul);
+      const btn = document.createElement("BUTTON");
+      btn.setAttribute("type", "checkbox");
+      const arr = [];
+
+      //
+      function todolist(txt) {
+        arr.push(txt);
+      }
+
+      //submit function
+      form.onsubmit = function(e) {
+        e.preventDefault();
+        additem(ul, txt.value); //passing input value
+      };
+
+      //add item function
+
+      function additem(ul, txt) {
+        console.log(txt);
+        if (txt) {
+          todolist(txt);
+        }
+
+        const li = document.createElement("li");
+        const sp = document.createElement("span");
+        li.appendChild(sp);
+        sp.innerHTML = txt;
+        const checkbox = document.createElement("input");
+        li.appendChild(checkbox);
+        checkbox.setAttribute("type", "checkbox");
+
+        //checkbox function
+
+        checkbox.onchange = function(e) {
+          if (e.target.value) {
+            const li = e.target.parentElement;
+            const sp = li.querySelector("span");
+            sp.innerHTML = "<s>" + sp.innerHTML + "</s>";
+            e.target.setAttribute("disabled", "true");
+          }
+        };
+
+        //delete txt
+
+        const del = document.createElement("button");
+        li.appendChild(del);
+        del.innerHTML = "X";
+        del.onclick = function(e) {
+          const li = e.target.parentElement;
+          li.remove();
+        };
+
+        ul.appendChild(li);
+      }
+    </script>
+  </body>
+</html>
